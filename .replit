@@ -1,0 +1,35 @@
+modules = ["nodejs-24"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+[userenv]
+
+[userenv.shared]
+GOOGLE_SHEET_ID_GSMC = "1Rfy1sfyf-j6hCfxywfJgPzFw1E2P6eWfX004qvLuDTM"
+DISCORD_GUILD_ID = "1357143423530045481"
+RBX_PROXY_DOMAIN = "roproxy.org"
